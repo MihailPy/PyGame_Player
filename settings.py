@@ -1,0 +1,3 @@
+SIZE = (WIDTH, HEIGHT) = (400, 400)
+
+COLOR = (255, 255, 255)
