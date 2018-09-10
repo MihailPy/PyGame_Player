@@ -17,6 +17,7 @@ class Plasmoid(pygame.sprite.Sprite):
         self.rect.move_ip((0, self.speed))
 
 class Player(pygame.sprite.Sprite):
+    plasm = 15
     max_speed = 10
     shooting_cooldoen = 150
 
@@ -26,7 +27,7 @@ class Player(pygame.sprite.Sprite):
         self.clock = clock
         self.plasmoids = plasmoids
 
-        self.image = pygame.image.load("assets/player.png")
+        self.image = pygame.image.load("assets/Player.png")
         self.rect = self.image.get_rect()
 
         self.rect.centerx = WIDTH / 2
@@ -37,6 +38,11 @@ class Player(pygame.sprite.Sprite):
         self.current_shooting_cooldown = 0
 
     def update(self):
+        if self.rect.centerx > 365:
+            self.rect.centerx = 367
+        elif self.rect.centerx < 30:
+            self.rect.centerx = 32
+
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_LEFT]:
@@ -54,10 +60,15 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_SPACE] and self.current_shooting_cooldown <= 0:
+            if self.plasm < 1:
+                return
+
+            self.plasm -= 1
             self.plasmoids.add(Plasmoid(self.rect.midtop))
             self.current_shooting_cooldown = self.shooting_cooldoen
         else:
             self.current_shooting_cooldown -= self.clock.get_time()
+
 
         for plasmoid in list(self.plasmoids):
             if plasmoid.rect.bottom < 0:
