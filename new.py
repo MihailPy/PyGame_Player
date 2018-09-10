@@ -4,7 +4,7 @@ from geme_objects import Player, Backgraund, Plasmoid, Car
 from settings import SIZE, COLOR
 
 pygame.init()
-pygame.display.set_caption(", Worold!")
+pygame.display.set_caption("Star wars!")
 
 screen = pygame.display.set_mode(SIZE)
 clock = pygame.time.Clock()
@@ -20,7 +20,7 @@ player = Player(clock, plasmoids)
 
 all_objects.add(backgaund)
 all_objects.add(player)
-#all_objects.add(Car())
+# all_objects.add(Car())
 
 while True:
     for event in pygame.event.get():
@@ -48,17 +48,19 @@ while True:
     if r == 0:
         record = record + 1 % 3
 
-
     all_objects.draw(screen)
     plasmoids.draw(screen)
 
     car.draw(screen)
     font = pygame.font.Font(None, 25)
     life = int(life)
-    text = font.render("Жизнь: " + str(life),True,(255,255,255))
-    text1 = font.render("Time: " + str(record),True,(255,255,255))
+    plas = int(player.plasm)
+    text = font.render("Жизнь: " + str(life), True, (255, 255, 255))
+    text1 = font.render("Time: " + str(record), True, (255, 255, 255))
+    text2 = font.render("Plasma: " + str(plas), True, (255, 255, 255))
     screen.blit(text, [15, 15])
-    screen.blit(text1, [15,30])
+    screen.blit(text1, [15, 30])
+    screen.blit(text2, [15, 45])
 
     pygame.display.flip()
     clock.tick(30)
